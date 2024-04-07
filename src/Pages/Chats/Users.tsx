@@ -45,7 +45,7 @@ export const Users = ({ setChatWith, chatWith }: UsersProps) => {
         <div key={user.uid} className={`chats__sidebar__profile user ${chatWith?.uid === user.uid ? "selected" : ""}`} onClick={() => handleUserClick(user.displayName, user.uid)}>
           <img src={DefaultProfilePhoto} alt="Profile" />
           <div className="chats__sidebar__profile-name">
-            <span className="chats__sidebar__profile-displayname">{user.displayName}</span>
+            <span className={`chats__sidebar__profile-displayname ${chatWith?.uid === user.uid ? "selected" : ""}`}>{user.displayName}</span>
           </div>
         </div>
       ))}

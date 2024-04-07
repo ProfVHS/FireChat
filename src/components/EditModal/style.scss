@@ -1,0 +1,115 @@
+@import "../../assets/colors.scss";
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+  &__blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(4px);
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+
+    position: relative;
+    background-color: #303030;
+
+    padding: 16px;
+    box-sizing: border-box;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+
+    width: 30%;
+    height: 25%;
+
+    border-radius: 8px;
+
+    &__title {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    & label {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    & input {
+      font-size: 16px;
+      font-weight: 400;
+
+      width: 75%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+      border: 2px solid transparent;
+      &:focus {
+        outline: none;
+        border: 2px solid $orange-color;
+      }
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 75%;
+    }
+
+    &__button {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000;
+      background: none;
+
+      border-radius: 8px;
+      padding: 8px 16px;
+
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      border: none;
+
+      &.save {
+        border: 2px solid $orange-color;
+        color: $orange-color;
+        &:hover {
+          background-color: $orange-color;
+          color: #fff;
+        }
+      }
+      &.delete {
+        border: 2px solid #c82800;
+        color: #c82800;
+        &:hover {
+          background-color: #c82800;
+          color: #fff;
+        }
+      }
+      &.cancel {
+        border: 2px solid #fff;
+
+        color: #fff;
+        &:hover {
+          background-color: #fff;
+          color: #000;
+        }
+      }
+    }
+  }
+}

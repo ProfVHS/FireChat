@@ -62,6 +62,10 @@
         color: #ff6b00;
         font-size: 20px;
         font-weight: 600;
+
+        &.selected {
+          color: #fff;
+        }
       }
       &-email {
         color: rgba($color: #fff, $alpha: 0.4);
@@ -97,16 +101,13 @@
         }
       }
     }
-
-    &__search {
-      width: 90%;
-      box-sizing: border-box;
-      border-radius: 16px;
-      padding: 8px;
-
-      font-size: 16px;
+    &__title {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
     }
   }
+
   &__content {
     position: relative;
     width: 70%;
@@ -131,6 +132,8 @@
       border-radius: 16px;
 
       color: rgba(#fff, 0.6);
+      font-weight: 700;
+      font-size: 24px;
 
       &-icon {
         width: 60px;

@@ -40,10 +40,6 @@ export const ChatRoom = ({ chatWith }: ChatRoomProps) => {
     return () => unsubscribe();
   }, [chatWith]);
 
-  console.log(chatWith);
-  console.log(messages);
-  console.log(auth.currentUser?.uid);
-
   return (
     <>
       <div className="chats__messages">
