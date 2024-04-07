@@ -1,7 +1,9 @@
+import "./App.scss";
+import { Auth } from "./components/Auth/Auth";
 function App() {
   return (
     <>
-      <div>FireChat</div>
+      <Auth />
     </>
   );
 }

@@ -1,0 +1,132 @@
+@import "../../assets/colors.scss";
+.auth {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+
+  background-color: #222;
+
+  &__title {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 16px;
+
+    background-color: #1b1b1b;
+    box-shadow: 4px 0 4px 0 rgba(0, 0, 0, 0.25);
+
+    &__button {
+      position: absolute;
+      top: 16px;
+
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      &.left {
+        left: 16px;
+      }
+      &.right {
+        right: 16px;
+      }
+
+      &:hover {
+        color: $orange-color;
+      }
+    }
+  }
+
+  &__form {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 16px;
+
+    &.left {
+      order: 0;
+    }
+    &.right {
+      order: 1;
+    }
+
+    & form {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    &__circle {
+      border: 4px solid #fff;
+      border-radius: 100%;
+      padding: 32px;
+    }
+    &__title {
+      font-size: 48px;
+      font-weight: 700;
+      color: #fff;
+    }
+    &__desc {
+      color: rgba(#fff, 0.6);
+      font-size: 20px;
+    }
+    &__label {
+      color: #fff;
+      align-self: self-start;
+    }
+    &__input {
+      background-color: rgba(255, 255, 255, 0.4);
+      height: 35px;
+      width: 100%;
+
+      font-size: 24px;
+      color: #fff;
+
+      border: 2px solid transparent;
+      border-radius: 4px;
+
+      transition: 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border: $orange-color 2px solid;
+      }
+    }
+    &__button {
+      margin-top: 64px;
+      background: none;
+      border: 2px solid $orange-color;
+      border-radius: 4px;
+      padding: 8px 32px;
+
+      width: 100%;
+
+      color: $orange-color;
+      font-size: 24px;
+
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      &:hover {
+        background-color: $orange-color;
+        color: #fff;
+      }
+    }
+  }
+}
