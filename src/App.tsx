@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Auth } from "./Pages/Auth/Auth";
 import { Chats } from "./Pages/Chats/Chats";

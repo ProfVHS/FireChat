@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 
 export const Auth = () => {
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState<boolean>(true);
 
@@ -16,13 +17,41 @@ export const Auth = () => {
     if (auth.currentUser) {
       navigate("/chats");
     }
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleChange = () => {
+    const newIsLogin = !isLogin;
+    setIsLogin(newIsLogin);
+  };
 
   return (
     <div className="auth">
       <Title isLogin={isLogin} setIsLogin={setIsLogin} />
-      <Register />
-      <Login />
+      {windowWidth > 768 ? (
+        <>
+          <Register />
+          <Login />
+        </>
+      ) : (
+        <>
+          {isLogin ? (
+            <>
+              <Login />
+              <AnimatePresence>{isLogin && <ChangeButton text="Register" handleChange={handleChange} isLogin={false} />}</AnimatePresence>
+            </>
+          ) : (
+            <>
+              <Register />
+              <AnimatePresence>{!isLogin && <ChangeButton text="Login" handleChange={handleChange} isLogin={false} />}</AnimatePresence>
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };

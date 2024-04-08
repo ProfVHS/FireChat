@@ -4,7 +4,6 @@ import { auth, firestore } from "../../App";
 
 import DefaultProfilePhoto from "../../assets/profile.png";
 import { user } from "./type";
-import { set } from "firebase/database";
 
 interface UsersProps {
   setChatWith: (user: user) => void;

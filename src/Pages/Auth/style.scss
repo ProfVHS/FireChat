@@ -65,6 +65,7 @@
 
     & form {
       width: 50%;
+      min-width: 300px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -81,10 +82,12 @@
       font-size: 48px;
       font-weight: 700;
       color: #fff;
+      text-align: center;
     }
     &__desc {
       color: rgba(#fff, 0.6);
       font-size: 20px;
+      text-align: center;
     }
     &__label {
       color: #fff;
@@ -127,6 +130,20 @@
         background-color: $orange-color;
         color: #fff;
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .auth {
+    flex-direction: column;
+
+    &__title {
+      display: none;
+    }
+
+    &__form {
+      width: 100%;
     }
   }
 }
