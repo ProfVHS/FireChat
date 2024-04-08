@@ -1,8 +1,8 @@
 import { collection, limit, onSnapshot, orderBy, query, Timestamp } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { auth, firestore } from "../../App";
-import { Message } from "./Message";
-import { SendMessage } from "./SendMessage";
+import { Message } from "../../components/Message/Message";
+import { SendMessage } from "../../components/SendMessage/SendMessage";
 import { user } from "./type";
 
 type message = {
@@ -23,7 +23,7 @@ export const ChatRoom = ({ chatWith }: ChatRoomProps) => {
   useEffect(() => {
     if (chatWith === undefined) return;
     console.log("Reading messages");
-    const q = query(collection(firestore, "messages"), orderBy("createdAt"), limit(50));
+    const q = query(collection(firestore, "messages"), orderBy("createdAt", "desc"), limit(50));
 
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       const fetchedMessages: message[] = [];

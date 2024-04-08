@@ -64,16 +64,14 @@ const Login = () => {
   const SignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+      .then(() => {
+        navigator("/chats");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
       });
-
-    navigator("/chats");
   };
   return (
     <div className={`auth__form`}>
@@ -112,8 +110,7 @@ const Register = () => {
   const signUpWithEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
+      .then(async () => {
         if (auth.currentUser) {
           await updateProfile(auth.currentUser, { displayName: displayName }).then(() => {
             if (auth.currentUser) {

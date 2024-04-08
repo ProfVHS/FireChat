@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { SendIcon } from "../../components/Svgs";
+import { SendIcon } from "../Svgs";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, firestore } from "../../App";
-import { user } from "./type";
+import { user } from "../../Pages/Chats/type";
+
+import "./style.scss";
 
 interface SendMessageProps {
   chatWith?: user;
@@ -29,9 +31,9 @@ export const SendMessage = ({ chatWith }: SendMessageProps) => {
     setMessage("");
   };
   return (
-    <form className="chats__send-message" onSubmit={handleSubmit}>
+    <form className="sendMessage" onSubmit={handleSubmit}>
       <input placeholder="Aa" value={message} onChange={(e) => setMessage(e.target.value)} />
-      <button className="chats__send-message__button">
+      <button className="sendMessage__button">
         <SendIcon />
       </button>
     </form>

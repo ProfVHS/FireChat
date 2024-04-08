@@ -1,0 +1,51 @@
+@import "../../assets/colors.scss";
+.message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 16px 0;
+  &.received {
+    justify-content: flex-start;
+  }
+  &.sent {
+    justify-content: flex-end;
+  }
+
+  & img {
+    &.receiver {
+      order: 0;
+    }
+    &.sender {
+      order: 1;
+    }
+  }
+
+  &-bubble {
+    padding: 8px 16px;
+    color: #fff;
+
+    &.received {
+      background-color: rgba($color: #fff, $alpha: 0.25);
+
+      border-top-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+    &.sent {
+      background-color: $orange-color;
+
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .message {
+    &__content {
+      padding: 0;
+    }
+  }
+}

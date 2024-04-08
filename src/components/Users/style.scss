@@ -1,0 +1,51 @@
+@import "../../assets/colors.scss";
+.users {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 100%;
+
+  overflow-y: auto;
+  &__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    width: 90%;
+    box-sizing: border-box;
+
+    border-radius: 16px;
+
+    padding: 16px;
+    background-color: rgba($color: #fff, $alpha: 0.05);
+
+    transition: 0.2s ease;
+    cursor: pointer;
+
+    &.selected {
+      background-color: rgba($orange-color, 0.2);
+    }
+
+    &-displayname {
+      color: #ff6b00;
+      font-size: 20px;
+      font-weight: 600;
+
+      &.selected {
+        color: #fff;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .users {
+    &__item {
+      flex-direction: column;
+    }
+  }
+}
