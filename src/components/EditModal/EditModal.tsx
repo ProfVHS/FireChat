@@ -1,20 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.scss";
 import { updateProfile } from "firebase/auth";
 import { auth, firestore } from "../../App";
 import { collection, deleteDoc, getDocs, or, query, updateDoc, where } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
+import { useAnimate, usePresence, motion } from "framer-motion";
+
 interface EditModalProps {
-  setEditModal: (value: boolean) => void;
+  closeEditModal: () => void;
 }
 
-export const EditModal = ({ setEditModal }: EditModalProps) => {
+export const EditModal = ({ closeEditModal }: EditModalProps) => {
   const [displayName, setDisplayName] = useState<string>("");
   const navigate = useNavigate();
 
+  const [scope, animate] = useAnimate();
+  const [isPresence, safeToRemove] = usePresence();
+
+  useEffect(() => {
+    if (isPresence) {
+      const enterAnimation = async () => {
+        await animate(".modal__blur", { opacity: [0, 1] }, { duration: 0.2 });
+        await animate(".modal__content", { opacity: [0, 1], scale: [0, 1] }, { duration: 0.4, type: "spring" });
+      };
+      enterAnimation();
+    } else {
+      const exitAnimation = async () => {
+        animate(".modal__content", { opacity: 0, scale: 0 }, { duration: 0.4, type: "spring" });
+        await animate(scope.current, { opacity: [1, 0] }, { duration: 0.3, ease: "easeInOut" });
+        safeToRemove();
+      };
+      exitAnimation();
+    }
+  }, [isPresence]);
+
   const changeDisplayName = async () => {
-    console.log(displayName);
     const user = auth.currentUser;
     if (user) {
       await updateProfile(user, {
@@ -31,7 +52,7 @@ export const EditModal = ({ setEditModal }: EditModalProps) => {
       }
     }
 
-    setEditModal(false);
+    closeEditModal;
   };
 
   const deleteAllMessages = async (uid: string) => {
@@ -65,9 +86,9 @@ export const EditModal = ({ setEditModal }: EditModalProps) => {
   };
 
   return (
-    <div className="modal">
+    <div className="modal" ref={scope}>
       <div className="modal__blur"></div>
-      <div className="modal__content">
+      <motion.div className="modal__content" initial={{ opacity: 0, scale: 0 }}>
         <span className="modal__content__title">Edit Profile</span>
         <label>Change your display name</label>
         <input type="text" placeholder="Display Name" onChange={(e) => setDisplayName(e.target.value)} />
@@ -75,14 +96,14 @@ export const EditModal = ({ setEditModal }: EditModalProps) => {
           <button className="modal__content__button save" onClick={() => changeDisplayName()}>
             Save
           </button>
-          <button className="modal__content__button cancel" onClick={() => setEditModal(false)}>
+          <button className="modal__content__button cancel" onClick={closeEditModal}>
             Cancel
           </button>
           <button className="modal__content__button delete" onClick={handleDeleteButton}>
             Delete Account
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

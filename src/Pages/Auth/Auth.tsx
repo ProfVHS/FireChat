@@ -66,7 +66,6 @@ const Login = () => {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -115,7 +114,6 @@ const Register = () => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        console.log(user);
         if (auth.currentUser) {
           await updateProfile(auth.currentUser, { displayName: displayName }).then(() => {
             if (auth.currentUser) {

@@ -72,6 +72,7 @@
       justify-content: space-between;
       width: 75%;
       min-width: 275px;
+      gap: 8px;
     }
 
     &__button {
@@ -81,7 +82,7 @@
       background: none;
 
       border-radius: 8px;
-      padding: 8px 16px;
+      padding: 8px 12px;
 
       cursor: pointer;
       transition: 0.2s ease;

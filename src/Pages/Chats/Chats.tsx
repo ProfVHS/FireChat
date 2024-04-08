@@ -10,6 +10,7 @@ import { ChatRoom } from "./ChatRoom";
 import { Users } from "./Users";
 import { user } from "./type";
 import { EditModal } from "../../components/EditModal/EditModal";
+import { AnimatePresence } from "framer-motion";
 
 export const Chats = () => {
   const [chatWith, setChatWith] = useState<user>();
@@ -27,6 +28,11 @@ export const Chats = () => {
     navigator("/");
   };
 
+  const closeEditModal = () => {
+    console.log("Closing Edit Modal");
+    setEditModal(false);
+  };
+
   return (
     <>
       <div className="chats">
@@ -41,8 +47,12 @@ export const Chats = () => {
               <span className="chats__sidebar__profile-displayname">{auth.currentUser?.displayName}</span>
               <span className="chats__sidebar__profile-email">{auth.currentUser?.email}</span>
             </div>
-            <EditIcon className="chats__sidebar__profile-edit" onClick={() => setEditModal(true)} />
-            <SignOutIcon className="chats__sidebar__profile-signout" onClick={SignOut} />
+            <button className="chats__sidebar__profile-edit" onClick={() => setEditModal(true)}>
+              <EditIcon className="chats__sidebar__profile-btn-icon" />
+            </button>
+            <button className="chats__sidebar__profile-signout" onClick={SignOut}>
+              <SignOutIcon className="chats__sidebar__profile-btn-icon" />
+            </button>
           </div>
           <span className="chats__sidebar__title">Chats</span>
           <Users setChatWith={setChatWith} chatWith={chatWith} />
@@ -52,7 +62,7 @@ export const Chats = () => {
           <ChatRoom chatWith={chatWith} />
         </div>
       </div>
-      {editModal && <EditModal setEditModal={setEditModal} />}
+      <AnimatePresence>{editModal && <EditModal closeEditModal={closeEditModal} />}</AnimatePresence>
     </>
   );
 };

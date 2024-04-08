@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { SendIcon } from "../../components/Svgs";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, firestore } from "../../App";
@@ -23,7 +23,6 @@ export const SendMessage = ({ chatWith }: SendMessageProps) => {
   const [message, setMessage] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("Sending message");
     e.preventDefault();
     if (message.trim() === "") return;
     sendMessage(message, chatWith!);

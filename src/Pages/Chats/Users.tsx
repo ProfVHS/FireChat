@@ -35,7 +35,6 @@ export const Users = ({ setChatWith, chatWith }: UsersProps) => {
   const handleUserClick = (displayName: string, uid: string) => {
     const newUser: user = { displayName: displayName, uid: uid };
     setChatWith(newUser);
-    console.log(newUser);
   };
 
   return (

@@ -72,32 +72,31 @@
         font-size: 14px;
       }
       &-edit {
+        background: none;
+        border: none;
         position: absolute;
         right: 16px;
         top: 16px;
         cursor: pointer;
-
-        & path {
-          fill: rgba($color: #fff, $alpha: 0.4);
-          transition: 0.4s ease;
-        }
-        &:hover path {
-          fill: $orange-color;
-        }
       }
-
       &-signout {
+        background: none;
+        border: none;
         position: absolute;
         bottom: 16px;
         right: 16px;
         cursor: pointer;
+      }
 
+      &-edit:hover path,
+      &-signout:hover path {
+        fill: $orange-color;
+      }
+
+      &-btn-icon {
         & path {
           fill: rgba($color: #fff, $alpha: 0.4);
           transition: 0.4s ease;
-        }
-        &:hover path {
-          fill: $orange-color;
         }
       }
     }
@@ -253,18 +252,26 @@
       }
       &__profile {
         flex-direction: column;
+        gap: 4px;
+        & img {
+          width: 35px;
+          height: 35px;
+        }
         &-edit {
           top: 8px;
-
           left: 8px;
         }
         &-signout {
           top: 8px;
+          bottom: auto;
           right: 8px;
         }
         &-name {
           justify-content: center;
           align-items: center;
+        }
+        &-email {
+          font-size: 12px;
         }
       }
     }
