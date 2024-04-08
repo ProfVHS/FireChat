@@ -1,6 +1,6 @@
-import { addDoc, collection, limit, onSnapshot, or, orderBy, Query, query, QuerySnapshot, Timestamp, where } from "firebase/firestore";
+import { collection, limit, onSnapshot, orderBy, query, Timestamp } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
-import { auth, firestore } from "../../main";
+import { auth, firestore } from "../../App";
 import { Message } from "./Message";
 import { SendMessage } from "./SendMessage";
 import { user } from "./type";
@@ -18,8 +18,11 @@ interface ChatRoomProps {
 export const ChatRoom = ({ chatWith }: ChatRoomProps) => {
   const [messages, setMessages] = useState<message[]>();
 
+  const messagesEndRef = useRef<HTMLSpanElement>(null);
+
   useEffect(() => {
     if (chatWith === undefined) return;
+    console.log("Odczytano wiadomości");
     const q = query(collection(firestore, "messages"), orderBy("createdAt"), limit(50));
 
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
@@ -40,12 +43,17 @@ export const ChatRoom = ({ chatWith }: ChatRoomProps) => {
     return () => unsubscribe();
   }, [chatWith]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <>
       <div className="chats__messages">
         {messages?.map((message) => (
           <Message key={message.id} message={message.message} uid={message.uid} />
         ))}
+        <span ref={messagesEndRef} />
       </div>
       <SendMessage chatWith={chatWith} />
     </>

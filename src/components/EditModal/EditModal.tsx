@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./style.scss";
 import { updateProfile } from "firebase/auth";
-import { auth, firestore } from "../../main";
-import { collection, doc, getDoc, getDocs, onSnapshot, query, QuerySnapshot, updateDoc, where } from "firebase/firestore";
+import { auth, firestore } from "../../App";
+import { collection, deleteDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 interface EditModalProps {
   setEditModal: (value: boolean) => void;
@@ -10,6 +11,8 @@ interface EditModalProps {
 
 export const EditModal = ({ setEditModal }: EditModalProps) => {
   const [displayName, setDisplayName] = useState<string>("");
+  const navigate = useNavigate();
+
   const changeDisplayName = async () => {
     console.log(displayName);
     const user = auth.currentUser;
@@ -30,6 +33,23 @@ export const EditModal = ({ setEditModal }: EditModalProps) => {
 
     setEditModal(false);
   };
+
+  const deleteAccount = async () => {
+    const user = auth.currentUser;
+    if (user) {
+      const q = query(collection(firestore, "users"), where("uid", "==", user.uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const docRef = querySnapshot.docs[0];
+        await deleteDoc(docRef.ref);
+      }
+      auth.currentUser?.delete();
+      auth.signOut();
+      navigate("/");
+    }
+  };
+
   return (
     <div className="modal">
       <div className="modal__blur"></div>
@@ -44,7 +64,9 @@ export const EditModal = ({ setEditModal }: EditModalProps) => {
           <button className="modal__content__button cancel" onClick={() => setEditModal(false)}>
             Cancel
           </button>
-          <button className="modal__content__button delete">Delete Account</button>
+          <button className="modal__content__button delete" onClick={deleteAccount}>
+            Delete Account
+          </button>
         </div>
       </div>
     </div>

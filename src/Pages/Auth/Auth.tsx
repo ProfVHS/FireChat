@@ -3,15 +3,20 @@ import { FireChatText, FireIcon, LoginIcon, PersonIcon } from "../../components/
 import "./style.scss";
 import { AnimatePresence, useAnimate, usePresence } from "framer-motion";
 
-import ProfilePicture from "../../assets/profile.png";
-
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateCurrentUser, updateProfile } from "firebase/auth";
-import { auth, firestore } from "../../main";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, firestore } from "../../App.tsx";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 
 export const Auth = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      navigate("/chats");
+    }
+  }, []);
 
   return (
     <div className="auth">
@@ -82,22 +87,21 @@ const Register = () => {
       .then(async (userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        if (auth.currentUser) {
+          await updateProfile(auth.currentUser, { displayName: displayName }).then(() => {
+            if (auth.currentUser) {
+              addUserToCollection(displayName, auth.currentUser.uid);
+            }
+          });
+          await navigator("/chats");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        return;
       });
-
-    if (auth.currentUser) {
-      await updateProfile(auth.currentUser, { displayName: displayName }).then(() => {
-        if (auth.currentUser) {
-          addUserToCollection(displayName, auth.currentUser.uid);
-        }
-      });
-    }
-
-    await navigator("/chats");
   };
   return (
     <div className={`auth__form`}>

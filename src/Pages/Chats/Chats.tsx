@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { auth } from "../../main";
+import { auth } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
@@ -13,7 +13,7 @@ import { EditModal } from "../../components/EditModal/EditModal";
 
 export const Chats = () => {
   const [chatWith, setChatWith] = useState<user>();
-  const [editModal, setEditModal] = useState<boolean>(true);
+  const [editModal, setEditModal] = useState<boolean>(false);
 
   const navigator = useNavigate();
   useEffect(() => {

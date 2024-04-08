@@ -1,4 +1,4 @@
-import { auth } from "../../main";
+import { auth } from "../../App";
 
 import DefaultPersonAvatar from "../../assets/profile.png";
 

@@ -1,6 +1,6 @@
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { auth, firestore } from "../../main";
+import { auth, firestore } from "../../App";
 
 import DefaultProfilePhoto from "../../assets/profile.png";
 import { user } from "./type";
