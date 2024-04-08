@@ -33,7 +33,9 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 
     width: 30%;
+    min-width: 300px;
     height: 25%;
+    min-height: 250px;
 
     border-radius: 8px;
 
@@ -69,6 +71,7 @@
       display: flex;
       justify-content: space-between;
       width: 75%;
+      min-width: 275px;
     }
 
     &__button {
@@ -110,6 +113,20 @@
           color: #000;
         }
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .modal__content {
+    width: 90%;
+
+    &__buttons {
+      gap: 8px;
+    }
+    &__button {
+      font-size: 16px;
+      padding: 4px 8px;
     }
   }
 }
