@@ -30,6 +30,12 @@
       background-color: rgba($orange-color, 0.2);
     }
 
+    &-picture {
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+    }
+
     &-displayname {
       color: #ff6b00;
       font-size: 20px;

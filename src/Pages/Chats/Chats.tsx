@@ -8,13 +8,14 @@ import DefaultProfilePhoto from "../../assets/profile.png";
 import { EditIcon, FireChatText, FireIcon, SignOutIcon } from "../../components/Svgs";
 import { ChatRoom } from "./ChatRoom";
 import { Users } from "../../components/Users/Users";
-import { user } from "./type";
-import { EditModal } from "../../components/EditModal/EditModal";
+import { modalType, user } from "./type";
+import { EditDisplayNameModal } from "../../components/Modals/EditDisplayNameModal";
 import { AnimatePresence } from "framer-motion";
+import { EditProfilePictureModal } from "../../components/Modals/EditProfilePictureModal";
 
 export const Chats = () => {
   const [chatWith, setChatWith] = useState<user>();
-  const [editModal, setEditModal] = useState<boolean>(false);
+  const [editModal, setEditModal] = useState<modalType>("CLOSED");
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export const Chats = () => {
 
   const closeEditModal = () => {
     console.log("Closing Edit Modal");
-    setEditModal(false);
+    setEditModal("CLOSED");
   };
 
   return (
@@ -51,13 +52,16 @@ export const Chats = () => {
           )}
         </div>
       </div>
-      <AnimatePresence>{editModal && <EditModal closeEditModal={closeEditModal} />}</AnimatePresence>
+      <AnimatePresence>
+        {editModal === "EDIT_DISPLAY_NAME" && <EditDisplayNameModal closeEditModal={closeEditModal} />}
+        {editModal === "EDIT_PROFILE_PICTURE" && <EditProfilePictureModal closeEditModal={closeEditModal} />}
+      </AnimatePresence>
     </>
   );
 };
 
 interface CurrentUserProps {
-  setEditModal: (value: boolean) => void;
+  setEditModal: (value: modalType) => void;
 }
 const CurrentUser = ({ setEditModal }: CurrentUserProps) => {
   const navigator = useNavigate();
@@ -67,12 +71,17 @@ const CurrentUser = ({ setEditModal }: CurrentUserProps) => {
   };
   return (
     <div className="chats__sidebar__profile">
-      {auth.currentUser?.photoURL ? <img src={auth.currentUser?.photoURL} alt="Profile" /> : <img src={DefaultProfilePhoto} alt="Profile" />}
+      <img
+        className="chats__sidebar__profile-picture"
+        src={auth.currentUser?.photoURL ? auth.currentUser?.photoURL : DefaultProfilePhoto}
+        alt="Profile"
+        onClick={() => setEditModal("EDIT_PROFILE_PICTURE")}
+      />
       <div className="chats__sidebar__profile-name">
         <span className="chats__sidebar__profile-displayname">{auth.currentUser?.displayName}</span>
         <span className="chats__sidebar__profile-email">{auth.currentUser?.email}</span>
       </div>
-      <button className="chats__sidebar__profile-edit" onClick={() => setEditModal(true)}>
+      <button className="chats__sidebar__profile-edit" onClick={() => setEditModal("EDIT_DISPLAY_NAME")}>
         <EditIcon className="chats__sidebar__profile-btn-icon" />
       </button>
       <button className="chats__sidebar__profile-signout" onClick={SignOut}>

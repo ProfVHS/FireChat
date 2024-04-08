@@ -55,6 +55,12 @@
 
       transition: 0.2s ease;
 
+      &-picture {
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+      }
+
       &-name {
         display: flex;
         flex-direction: column;

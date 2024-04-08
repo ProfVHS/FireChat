@@ -21,6 +21,7 @@ export const Users = ({ setChatWith, chatWith }: UsersProps) => {
       const fetchedUsers: user[] = [];
       QuerySnapshot.forEach((doc: any) => {
         if (doc.data().uid === auth.currentUser?.uid) return;
+        console.log(doc.data());
         fetchedUsers.push({ ...doc.data(), id: doc.id });
       });
       setUsers(fetchedUsers);
@@ -29,16 +30,16 @@ export const Users = ({ setChatWith, chatWith }: UsersProps) => {
     return () => unsubscribe();
   }, []);
 
-  const handleUserClick = (displayName: string, uid: string) => {
-    const newUser: user = { displayName: displayName, uid: uid };
+  const handleUserClick = (displayName: string, uid: string, pictureUrl: string) => {
+    const newUser: user = { displayName: displayName, uid: uid, photoURL: pictureUrl };
     setChatWith(newUser);
   };
 
   return (
     <div className="users">
       {users?.map((user) => (
-        <div key={user.uid} className={`users__item ${chatWith?.uid === user.uid ? "selected" : ""}`} onClick={() => handleUserClick(user.displayName, user.uid)}>
-          <img src={DefaultProfilePhoto} alt="Profile" />
+        <div key={user.uid} className={`users__item ${chatWith?.uid === user.uid ? "selected" : ""}`} onClick={() => handleUserClick(user.displayName, user.uid, user.photoURL)}>
+          <img src={user.photoURL ? user.photoURL : DefaultProfilePhoto} className="users__item-picture" alt="Profile" />
           <span className={`users__item-displayname ${chatWith?.uid === user.uid ? "selected" : ""}`}>{user.displayName}</span>
         </div>
       ))}

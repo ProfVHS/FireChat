@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 import { useAnimate, usePresence, motion } from "framer-motion";
 
-interface EditModalProps {
+interface EditDisplayNameModalProps {
   closeEditModal: () => void;
 }
 
-export const EditModal = ({ closeEditModal }: EditModalProps) => {
+export const EditDisplayNameModal = ({ closeEditModal }: EditDisplayNameModalProps) => {
   const [displayName, setDisplayName] = useState<string>("");
   const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ export const EditModal = ({ closeEditModal }: EditModalProps) => {
       }
     }
 
-    closeEditModal;
+    closeEditModal();
   };
 
   const deleteAllMessages = async (uid: string) => {
