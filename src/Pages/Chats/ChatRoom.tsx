@@ -23,7 +23,6 @@ export const ChatRoom = ({ chatWith }: ChatRoomProps) => {
 
   useEffect(() => {
     if (chatWith === undefined) return;
-    console.log("Reading messages");
     const q = query(collection(firestore, "messages"), orderBy("createdAt", "desc"), limit(50));
 
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {

@@ -101,7 +101,7 @@
       }
       &-email {
         color: rgba($color: #fff, $alpha: 0.4);
-        font-size: 14px;
+        font-size: 12px;
       }
       &-edit {
         background: none;
@@ -239,6 +239,17 @@
     }
     &__content {
       width: 70%;
+    }
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .chats {
+    &__sidebar {
+      &__profile {
+        &-email {
+          display: none;
+        }
+      }
     }
   }
 }
