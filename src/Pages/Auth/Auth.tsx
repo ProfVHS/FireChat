@@ -7,7 +7,6 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth, firestore } from "../../App.tsx";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
-import { set } from "firebase/database";
 
 export const Auth = () => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
