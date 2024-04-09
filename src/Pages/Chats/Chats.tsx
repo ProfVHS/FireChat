@@ -71,12 +71,10 @@ const CurrentUser = ({ setEditModal }: CurrentUserProps) => {
   };
   return (
     <div className="chats__sidebar__profile">
-      <img
-        className="chats__sidebar__profile-picture"
-        src={auth.currentUser?.photoURL ? auth.currentUser?.photoURL : DefaultProfilePhoto}
-        alt="Profile"
-        onClick={() => setEditModal("EDIT_PROFILE_PICTURE")}
-      />
+      <div className="chats__sidebar__profile__picture" onClick={() => setEditModal("EDIT_PROFILE_PICTURE")}>
+        <img className="chats__sidebar__profile__picture-img" src={auth.currentUser?.photoURL ? auth.currentUser?.photoURL : DefaultProfilePhoto} alt="Profile" />
+        <EditIcon className="chats__sidebar__profile__picture-editIcon" />
+      </div>
       <div className="chats__sidebar__profile-name">
         <span className="chats__sidebar__profile-displayname">{auth.currentUser?.displayName}</span>
         <span className="chats__sidebar__profile-email">{auth.currentUser?.email}</span>

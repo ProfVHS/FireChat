@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth, firestore } from "../../App.tsx";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
+import { set } from "firebase/database";
 
 export const Auth = () => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -59,19 +60,39 @@ export const Auth = () => {
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [errors, setErrors] = useState<string[]>([]);
   const navigator = useNavigate();
 
   const SignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    setErrors([]);
     e.preventDefault();
+
+    if (email.trim() === "") {
+      setErrors((prevErrors) => [...prevErrors, "E-mail is required"]);
+      return;
+    }
+    if (password.trim() === "") {
+      setErrors((prevErrors) => [...prevErrors, "Password is required"]);
+      return;
+    }
     await signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigator("/chats");
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(errorCode);
+        setErrors((prevErrors) => [...prevErrors, "Incorrect e-mail or password"]);
+        setPassword("");
       });
+  };
+
+  const checkForEmailErrors = () => {
+    return errors.find((error) => error === "E-mail is required" || email === "Incorrect e-mail or password");
+  };
+
+  const checkForPasswordErrors = () => {
+    return errors.find((error) => error === "Password is required" || email === "Incorrect e-mail or password");
   };
   return (
     <div className={`auth__form`}>
@@ -80,15 +101,32 @@ const Login = () => {
       </div>
       <div className="auth__form__title">Login</div>
       <div className="auth__form__desc">Welcome back to our chat!</div>
+      {errors.length > 0 && <Errors errors={errors} />}
       <form>
         <label className="auth__form__label">Email</label>
-        <input type="email" className="auth__form__input" onChange={(e) => setEmail(e.target.value)} />
+        <input type="email" className={`auth__form__input ${checkForEmailErrors() && "error"}`} value={email} onChange={(e) => setEmail(e.target.value)} />
         <label className="auth__form__label">Password</label>
-        <input type="password" className="auth__form__input" onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" className={`auth__form__input ${checkForPasswordErrors() && "error"}`} value={password} onChange={(e) => setPassword(e.target.value)} />
         <button className="auth__form__button" onClick={SignIn}>
           Login
         </button>
       </form>
+    </div>
+  );
+};
+interface ErrorsProps {
+  errors: string[];
+}
+const Errors = ({ errors }: ErrorsProps) => {
+  return (
+    <div className="auth__form__errors">
+      {errors.map((error, i) => {
+        return (
+          <div key={i} className="auth__form__errors-item">
+            {error}
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -10,6 +10,7 @@ type message = {
   message: string;
   createdAt: Timestamp;
   uid: string;
+  avatar: string;
 };
 
 interface ChatRoomProps {
@@ -51,7 +52,7 @@ export const ChatRoom = ({ chatWith }: ChatRoomProps) => {
     <>
       <div className="chats__messages">
         {messages?.map((message) => (
-          <Message key={message.id} message={message.message} uid={message.uid} />
+          <Message key={message.id} message={message.message} uid={message.uid} avatar={message.avatar} />
         ))}
         <span ref={messagesEndRef} />
       </div>

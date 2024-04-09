@@ -25,6 +25,7 @@ export const SendMessage = ({ chatWith }: SendMessageProps) => {
   const [message, setMessage] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(chatWith);
     e.preventDefault();
     if (message.trim() === "") return;
     sendMessage(message, chatWith!);

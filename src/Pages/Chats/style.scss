@@ -55,10 +55,38 @@
 
       transition: 0.2s ease;
 
-      &-picture {
+      &__picture {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
         width: 60px;
         height: 60px;
         border-radius: 100%;
+        cursor: pointer;
+        &-img {
+          width: 100%;
+          height: 100%;
+          border-radius: 100%;
+          transition: 0.2s ease;
+        }
+        &-editIcon {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          & path {
+            transition: 0.2s ease;
+            scale: 0;
+          }
+        }
+        &:hover path {
+          scale: 1;
+          fill: $orange-color;
+        }
+        &:hover &-img {
+          filter: brightness(0.4);
+        }
       }
 
       &-name {
@@ -149,7 +177,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
       gap: 16px;
+
+      text-align: center;
       color: rgba(#fff, 0.2);
       font-size: 24px;
       font-weight: 700;
