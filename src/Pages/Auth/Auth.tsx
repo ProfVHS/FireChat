@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FireChatText, FireIcon } from "../../components/Svgs";
 import "./style.scss";
-import { AnimatePresence, useAnimate, usePresence } from "framer-motion";
+import { AnimatePresence, useAnimate, usePresence, motion } from "framer-motion";
 
 import { auth } from "../../App.tsx";
 import { useNavigate } from "react-router-dom";
@@ -75,12 +75,12 @@ const Title = ({ isLogin, setIsLogin }: AuthTitleProps) => {
     setIsLogin(newIsLogin);
   };
   return (
-    <div className={`auth__title `} ref={scope}>
+    <motion.div className={`auth__title `} ref={scope} initial={{ x: "100%" }}>
       <AnimatePresence>{isLogin && <ChangeButton text="Register" handleChange={handleChange} isLogin={true} />}</AnimatePresence>
       <AnimatePresence>{!isLogin && <ChangeButton text="Login" handleChange={handleChange} isLogin={false} />}</AnimatePresence>
       <FireIcon />
       <FireChatText />
-    </div>
+    </motion.div>
   );
 };
 
