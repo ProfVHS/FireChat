@@ -40,7 +40,17 @@ export const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className="auth__form__label">Email</label>
         {errors.email && <span className="auth__form__error">{errors.email.message}</span>}
-        <input type="email" className="auth__form__input" {...register("email", { required: "Please enter the e-mail" })} />
+        <input
+          type="email"
+          className="auth__form__input"
+          {...register("email", {
+            required: "Please enter the e-mail",
+            pattern: {
+              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: "Please enter a valid email",
+            },
+          })}
+        />
         <label className="auth__form__label">Password</label>
         {errors.password && <span className="auth__form__error">{errors.password.message}</span>}
         <input type="password" className="auth__form__input" {...register("password", { required: "Please enter the passowrd " })} />
